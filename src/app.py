@@ -1,32 +1,39 @@
 import streamlit as st
 import pandas as pd
+from PIL import Image
 
+
+   
 def main():
     # Definindo o estado da aplicação
     state = {"page": "home"}  # Inicialmente, estamos na página inicial
 
-    st.title("Sistema de Gerenciamento")
+    
+    with st.sidebar:
+    # Criando duas colunas para posicionar os botões lado a lado
+        image = Image.open('img\superchips-logo.png')
+        st.image(image)
 
-    # Botão para cadastrar novo produto
-    if st.button("Cadastrar Novo Produto"):
-        state["page"] = "produtos"
 
-    # Botão para gerenciar estoque
-    if st.button("Gerenciar Estoque"):
-        state["page"] = "estoque"
+        # Botão para cadastrar novo produto
+        if st.button("Cadastrar Novo Produto"):
+            state["page"] = "produtos"
 
-    # Botão para novo pedido
-    if st.button("Novo Pedido"):
-        state["page"] = "pedido"
+        # Botão para gerenciar estoque
+        if st.button("Gerenciar Estoque"):
+            state["page"] = "estoque"
 
-    # Botão para finalizar vendas
-    if st.button("Finalizar Vendas"):
-        state["page"] = "vendas"
+        # Botão para novo pedido
+        if st.button("Novo Novo Pedido"):
+            state["page"] = "pedido"
+
+        # Botão para finalizar vendas
+        if st.button("Finalizar Vendas"):
+            state["page"] = "vendas"
 
     # Verifica o estado atual e exibe a página correspondente
-    if state["page"] == "home":
-        show_home()
-    elif state["page"] == "produtos":
+    
+    if state["page"] == "produtos":
         show_produtos()
     elif state["page"] == "estoque":
         show_estoque()
@@ -34,10 +41,6 @@ def main():
         show_pedido()
     elif state["page"] == "vendas":
         show_vendas()
-
-def show_home():
-    st.header("Página Inicial")
-    st.write("Bem-vindo ao sistema de gerenciamento!")
 
 def show_produtos():
     st.header("Página de Produtos")
