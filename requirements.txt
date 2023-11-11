@@ -1,2 +1,6 @@
 pytest
 streamlit
+mysql-connector-python
+pyodbc 
+mysqlclient
+SQLAlchemy==1.4.20
