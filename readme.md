@@ -1,4 +1,5 @@
 # superchips 
+![Logo Superchips](img/superchips-logo.png)
 
 ## Descrição
 
@@ -8,8 +9,12 @@ Superchips é uma fábrica de produtos alimentícios. Com foco na sua produção
 ## Funcionalidades Principais
 
 - Cadastro de produtos 
+![Cadastro de produtos](img/demoprodutos.png)
 - Atualização de estoque [in progress]
+![Atualização de estoqu](img/demoprodutos2.png)
 - Gerenciamento de usuários 
+![Gerenciamento de usuários ](img/demologin.png)
+![Gerenciamento de usuários ](img/demousers.png)
 - Registro de pedidos e vendas [in progress]
 
 
