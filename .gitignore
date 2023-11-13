@@ -1,1 +1,3 @@
 venv
+src/conexao.py
+.streamlit
