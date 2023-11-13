@@ -1,2 +1,3 @@
 venv
-src/.streamlit/secrets.toml
+src/conexao.py
+src/.streamlit
