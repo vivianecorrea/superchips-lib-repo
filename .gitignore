@@ -1,3 +1,5 @@
 venv
 src/conexao.py
 .streamlit
+tests/__pycache__
+tests/.pytest_cache
