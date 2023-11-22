@@ -4,3 +4,4 @@ mysql-connector-python
 pyodbc 
 mysqlclient
 SQLAlchemy==1.4.20
+coverage==7.3.2

@@ -1,5 +1,5 @@
 import streamlit as st
-from src import  conexao
+import  conexao
 
 
 cursor = conexao.conecta_banco().cursor()
@@ -36,10 +36,11 @@ def show_product_register_form():
         cadastrar_produto_submit = st.form_submit_button(label="Cadastrar Novo Produto", type="secondary", use_container_width=True)
 
         if cadastrar_produto_submit:
-            product = Product(categoria, tamanho, nome_produto)
-            if product.register_new_product(categoria, tamanho, nome_produto):
-                #cursor.execute(new_product.set_product_info(categoria, tamanho[0],nome_produto),  timeout=10 )
-                #conexao.commit()
+            new_product = Product(categoria, tamanho, nome_produto)
+            if new_product.register_new_product(categoria, tamanho, nome_produto):
+                #cursor.execute(new_product.set_product_info(categoria, tamanho[0],nome_produto) )
+                cursor.execute("INSERT INTO produtos (nome_produto, categoria, tam_pac) VALUES  (%s, %s, %s);",['TESTEE', 'Amendoim', 'P'] )
+                conexao.commit()
                 #FIXME: débito técnico 
                 st.success(f"Produto cadastrado: {nome_produto}, Categoria: {categoria}, Tamanho: {tamanho}")
             else:

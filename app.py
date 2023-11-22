@@ -1,5 +1,5 @@
-from src.structs import *
-from src.login import *
+from structs import *
+from login import *
 import streamlit as st
 
 

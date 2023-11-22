@@ -1,5 +1,5 @@
 import streamlit as st 
-from src import products, structs, conexao
+import products, structs, conexao
 
 
 #cursor = conexao.conecta_banco().cursor()
