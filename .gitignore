@@ -4,3 +4,5 @@ conexao.py
 tests/__pycache__
 tests/.pytest_cache
 src/__pycache__
+/__pycache__
+/db
