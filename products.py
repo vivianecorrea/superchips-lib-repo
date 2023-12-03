@@ -1,38 +1,24 @@
-import streamlit as st
+import pandas as pd
+from DBConn import DBConn
 
 class Product: 
-    def __init__(self, category, pct_size, name):
-        self.category = category
-        self.pct_size = pct_size
-        self.name = name 
+    def __init__(self, db_connection: DBConn):
+        self.db_connection = db_connection
 
-    def register_new_product(self, categoria, tamanho, nome_produto):
-        if tamanho not in ["P (100 g)", "M (300g)", "G (500g)"]:
-            return False
-        categorias_validas = ["Banana", "Batata", "Amendoim"]
-        if categoria not in categorias_validas:
-            return False
+    def inserir_registro(self, produto, peso, sabor):
+        self.db_connection.executar_operacao('INSERT INTO Produtos (Produto, Peso, Sabor) VALUES (?, ?, ?)', (produto, peso, sabor))
 
-        if len(nome_produto) > 100:
-            return False
+    def obter_registros(self):
+        query = 'SELECT ID_Produto, Produto, Peso, Sabor FROM Produtos'
+        self.db_connection.executar_operacao(query)
+        df = pd.read_sql_query(query, self.db_connection.connection)
+        df = df.reset_index(drop=True)
+        return df
 
-        return True
+    def atualizar_registro(self, id_produto, novo_produto, novo_peso, novo_sabor):
+        query = 'UPDATE Produtos SET Produto=?, Peso=?, Sabor=? WHERE ID_Produto=?'
+        self.db_connection.executar_operacao(query, (novo_produto, novo_peso, novo_sabor, id_produto))
 
-def show_product_register_form():
-    st.title('Cadastrar novo produto')
-
-    with st.form("my_form"):
-        categoria = st.selectbox("Categoria:", ["Banana", "Batata", "Amendoim"])
-        tamanho = st.selectbox("Tamanho:", ["P (100 g)", "M (300g)", "G (500g)"])
-        nome_produto = st.text_input("Nome do Produto:")
-
-        if st.form_submit_button("Cadastrar novo Produto"):
-            update_product_list(nome_produto, categoria, tamanho)
-
-def update_product_list(nome_produto, categoria, tamanho):
-        new_product = {"nome_produto": nome_produto, "categoria": categoria, "tam_pac": tamanho}
-        if 1 == 1:
-            st.session_state['products'].append(new_product)
-            st.success(f"Produto cadastrado: {nome_produto}, Categoria: {categoria}, Tamanho: {tamanho}")
-        else:
-            st.error("Falha ao cadastrar o produto. Verifique as informações.")
+    def deletar_registro(self, id_produto):
+        query = 'DELETE FROM Produtos WHERE ID_Produto=?'
+        self.db_connection.executar_operacao(query, (id_produto))

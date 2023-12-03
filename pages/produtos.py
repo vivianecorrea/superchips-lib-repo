@@ -1,57 +1,37 @@
-import streamlit as st 
-import products, structs
-
 import streamlit as st
+from products import Product
+from DBConn import DBConn
 
-class ProductUI:
-    def __init__(self):
-        #self.conn = st.connection('mysql', type='sql')
-        pass
+product = Product(DBConn())
 
-    def get_produtos_df(self):
-        # return self.conn.query('SELECT nome_produto, categoria, tam_pac from produtos;', ttl=600)
-        return [{"nome_produto": "Amendoim Sortido pequeno", "categoria": "Amendoim", "tam_pac": "P (300g)"}]
+st.title('Produtos Superchips')
+st.subheader('Cadastrar novo produto')
+input_produto = st.text_input('Nome do produto:')
+input_peso = st.selectbox("Tamanho Pacote:", ["300 g", "500g", "700 g"])
+input_sabor = st.selectbox("Sabor:", ["Tradicional", "Churrasco", "Banana", "Amendoim", "Outros"])
+if st.button('Cadastrar'):
+    product.inserir_registro(input_produto, input_peso, input_sabor)
+    st.success('Registro adicionado com sucesso.')
 
-    def show_product_info(self, product, col1, col2, col3, col4):
-        col1.write(f"{product['nome_produto']}")
-        col2.write(f"{product['categoria']}")
-        col3.write(f"{product['tam_pac']}")
-        col4.button("Alterar", type="secondary", key=f"alter_{product['nome_produto']}")
+st.subheader('Produtos Cadastrados')
+df = product.obter_registros()
 
-    def main(self):
-        st.title('Olá Admin Superchips !')
-        st.write(' Gerencie aqui os seus produtos')
+if not df.empty:
+    st.table(df)
+else:
+    st.warning('Não há registros na tabela.')
 
-        df = self.get_produtos_df()
+st.subheader('Atualizar Produtos')
+id_para_atualizar = st.text_input('ID do produto a ser atualizado:')
+novo_produto = st.text_input('Novo nome do produto:')
+novo_peso = st.selectbox('Novo tamanho do pacote:', ["300 g", "500g", "700 g"])
+novo_sabor = st.selectbox('Novo sabor:', ["Tradicional", "Churrasco", "Banana", "Amendoim", "Outros"])
+if st.button('Atualizar'):
+    product.atualizar_registro(id_para_atualizar, novo_produto, novo_peso, novo_sabor)
+    st.success('Registro atualizado com sucesso.')
 
-        if 'products' not in st.session_state:
-            st.session_state['products'] = df
-
-        col1, col2, col3, col4 = st.columns(4)
-
-        col1.subheader('Produto', divider='gray')
-        col2.subheader('Categoria', divider='gray')
-        col3.subheader('Tamanho', divider='gray')
-        col4.subheader('Opções', divider='gray')
-
-        for product in st.session_state['products']:
-            self.show_product_info(product, col1, col2, col3, col4)
-
-        st.subheader(' ', divider='gray')
-            
-            
-
-
-
-with st.sidebar:
-    structs.get_image()
-    structs.get_main_components()
-    structs.back_home()
-
-
-app = ProductUI()
-app.main()
-
-products.show_product_register_form()
-
-
+st.subheader('Deletar Produtos')
+id_para_deletar = st.text_input('ID do produto a ser deletado:')
+if st.button('Deletar'):
+    product.deletar_registro(id_para_deletar)
+    st.success('Registro deletado com sucesso.')
