@@ -6,3 +6,4 @@ tests/.pytest_cache
 src/__pycache__
 /__pycache__
 /db
+meubanco.db
