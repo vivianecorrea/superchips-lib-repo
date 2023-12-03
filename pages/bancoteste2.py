@@ -2,9 +2,7 @@ import streamlit as st
 import sqlite3
 import os
 
-# Obtém o caminho absoluto para o arquivo do banco de dados
 
-# Obtém o caminho absoluto para o arquivo do banco de dados
 db_path = os.path.join(os.getcwd(), 'db', 'meu_banco.db')
 
 # Função para criar a tabela se ela não existir
