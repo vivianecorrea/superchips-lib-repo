@@ -1,9 +1,8 @@
-from class_DBConn import DBConn
+from DBConn import DBConn
 
 class Calendar: 
     def __init__(self, db_connection: DBConn):
         self.db_connection = db_connection
-
 
     def criar_tabela_eventos(self):
         query = '''
@@ -17,16 +16,15 @@ class Calendar:
         '''
         return self.db_connection.executar_operacao(query)
 
-    def inserir_evento(titulo, descricao, data, hora):
+    def inserir_evento(self, titulo, descricao, data, hora):
         query = 'INSERT INTO Eventos (Titulo, Descricao, Data, Hora) VALUES (?, ?, ?, ?)'
-        return  self.db_connection.executar_operacao(query, (titulo, descricao, data, hora) )
-        
+        return self.db_connection.executar_operacao(query, (titulo, descricao, data, hora))
+
     def obter_eventos(self):
         conn = self.db_connection
         cursor = conn.cursor()
         query = 'SELECT * FROM Eventos'
-        self.db_connection.executar_operacao(query)
+        cursor.execute(query)
         eventos = cursor.fetchall()
         conn.close()
         return eventos
-

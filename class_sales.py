@@ -3,10 +3,8 @@ import sqlite3
 import pandas as pd
 
 
-
 class Sales():
 
-    
     def create_sales_table():
         conn = sqlite3.connect('sales.db')
         cursor = conn.cursor()

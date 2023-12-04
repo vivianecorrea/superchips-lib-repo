@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock
 import pandas as pd
 
-from supply import Supply
+from class_supply import Supply
 
 @pytest.fixture
 def mock_db_connection():

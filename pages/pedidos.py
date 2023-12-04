@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 
-# TODO
+
 db_path = os.path.join(os.getcwd(), 'db', 'superchips.db')
 conn = sqlite3.connect(db_path)
 
