@@ -1,5 +1,5 @@
 import streamlit as st
-from products import Product
+from class_products import Product
 from DBConn import DBConn
 
 product = Product(DBConn())
@@ -33,5 +33,5 @@ if st.button('Atualizar'):
 st.subheader('Deletar Produtos')
 id_para_deletar = st.text_input('ID do produto a ser deletado:')
 if st.button('Deletar'):
-    product.deletar_registro(id_para_deletar)
+    product.deletar_registro(int(id_para_deletar))
     st.success('Registro deletado com sucesso.')

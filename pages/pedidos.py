@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 
-# TODO: Criar métodos de conexão com o banco com isso:
+# TODO
 db_path = os.path.join(os.getcwd(), 'db', 'superchips.db')
 conn = sqlite3.connect(db_path)
 
@@ -31,10 +31,8 @@ def obter_pedidos():
     df = df.reset_index(drop=True)
     return df
 
-# Streamlit UI
 st.title('Pedidos Superchips')
 
-# Formulário para inserir novo pedido
 st.subheader('Novo Pedido')
 produtos = obter_produtos()
 id_produto_pedido = st.selectbox('Selecione o Produto:', produtos, format_func=lambda x: x[1])
@@ -55,7 +53,6 @@ if st.button('Registrar Pedido'):
     )
     st.success('Pedido registrado com sucesso.')
 
-# Tabela de pedidos existentes
 st.subheader('Pedidos Cadastrados')
 df_pedidos = obter_pedidos()
 

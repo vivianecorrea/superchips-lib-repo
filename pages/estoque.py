@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from DBConn import DBConn
+from class_DBConn import DBConn
 from supply import Supply
 
 supply = Supply(DBConn())
