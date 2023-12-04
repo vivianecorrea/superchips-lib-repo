@@ -10,3 +10,9 @@ class DBConn(metaclass=DBConnSingleton):
         cursor = self.connection.cursor()
         cursor.execute(query, parameters)
         self.connection.commit()
+    
+    def executar_operacao_em_lista(self, query_objects):
+        for query_object in query_objects:
+            cursor = self.connection.cursor()
+            cursor.execute(query_object['query'], query_object['parameters'])            
+        self.connection.commit()

@@ -21,21 +21,33 @@ def test_inserir_registro(mock_db_connection):
         (produto, peso, sabor)
     )
 
-def test_obter_registros(mock_db_connection):
+def test_atualizar_registro(mock_db_connection):
     product = Product(mock_db_connection)
-    
-    query = 'SELECT ID_Produto, Produto, Peso, Sabor FROM Produtos'
-    
-    mock_db_connection.executar_operacao.return_value = pd.DataFrame({
-        'ID_Produto': [1, 2],
-        'Produto': ['Apple', 'Orange'],
-        'Peso': [100, 120],
-        'Sabor': ['Sweet', 'Citrus']
-    })
-    
-    result = product.obter_registros()
-    
-    # Assert that the method fetched the data and returned a DataFrame
-    mock_db_connection.executar_operacao.assert_called_once_with(query)
-    assert isinstance(result, pd.DataFrame)
-    assert len(result) == 2  # Check the length of the returned DataFrame
+
+    id_produto = 1
+    novo_produto = 'Updated Product'
+    novo_peso = 150
+    novo_sabor = 'New Flavor'
+
+    product.atualizar_registro(id_produto, novo_produto, novo_peso, novo_sabor)
+
+    query = 'UPDATE Produtos SET Produto=?, Peso=?, Sabor=? WHERE ID_Produto=?'
+
+    mock_db_connection.executar_operacao.assert_called_once_with(
+        query, (novo_produto, novo_peso, novo_sabor, id_produto)
+    )
+
+def test_deletar_registro(mock_db_connection):
+    product = Product(mock_db_connection)
+
+    id_produto = 1
+
+    product.deletar_registro(id_produto)
+
+    query = 'DELETE FROM Produtos WHERE ID_Produto=?'
+
+    mock_db_connection.executar_operacao.assert_called_once_with(
+        query, (id_produto)
+    )
+ 
+
